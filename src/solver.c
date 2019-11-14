@@ -28,7 +28,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 //=================================================================================================
 // Debug:
 
-//#define VERBOSEDEBUG
+#define VERBOSEDEBUG
 
 // For derivation output (verbosity level 2)
 #define L_IND    "%-*d"
