@@ -36,7 +36,7 @@ typedef struct veci_t veci;
 static inline void veci_new (veci* v) {
     v->size = 0;
     v->cap  = 4;
-    v->ptr  = malloc(sizeof(int)*v->cap);
+    v->ptr  = calloc(1, sizeof(int)*v->cap);
 }
 
 static inline void   veci_delete (veci* v)          { free(v->ptr);   }
@@ -64,7 +64,7 @@ typedef struct vecp_t vecp;
 static inline void vecp_new (vecp* v) {
     v->size = 0;
     v->cap  = 4;
-    v->ptr  = malloc(sizeof(void*)*v->cap);
+    v->ptr  = calloc(1, sizeof(void*)*v->cap);
 }
 
 static inline void   vecp_delete (vecp* v)          { free(v->ptr);   }
