@@ -15,6 +15,7 @@ CAMLprim value caml_minisat_new(value unit)
   CAMLlocal1 (block);
 
   solver *s = solver_new();
+  s->verbosity = 2;
 
   // allocate a block to store the pointer
   block = caml_alloc_small(sizeof(s), Abstract_tag);
