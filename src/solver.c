@@ -268,7 +268,7 @@ static clause* clause_new(solver* s, lit* begin, lit* end, int learnt)
     assert(end - begin > 1);
     assert(learnt >= 0 && learnt < 2);
     size           = end - begin;
-    c              = (clause*)malloc(sizeof(clause) + sizeof(lit) * size + learnt * sizeof(float));
+    c              = malloc(sizeof(clause) + sizeof(lit) * size + learnt * sizeof(float));
     c->size_learnt = (size << 1) | learnt;
     assert(((unsigned long)c & 1) == 0);
 
@@ -348,14 +348,14 @@ void solver_setnvars(solver* s,int n)
 
         while (s->cap < n) s->cap = s->cap*2+1;
 
-        s->wlists    = (vecp*)   realloc(s->wlists,   sizeof(vecp)*s->cap*2);
-        s->activity  = (double*) realloc(s->activity, sizeof(double)*s->cap);
-        s->assigns   = (lbool*)  realloc(s->assigns,  sizeof(lbool)*s->cap);
-        s->orderpos  = (int*)    realloc(s->orderpos, sizeof(int)*s->cap);
-        s->reasons   = (clause**)realloc(s->reasons,  sizeof(clause*)*s->cap);
-        s->levels    = (int*)    realloc(s->levels,   sizeof(int)*s->cap);
-        s->tags      = (lbool*)  realloc(s->tags,     sizeof(lbool)*s->cap);
-        s->trail     = (lit*)    realloc(s->trail,    sizeof(lit)*s->cap);
+        s->wlists    = realloc(s->wlists,   sizeof(vecp)*s->cap*2);
+        s->activity  = realloc(s->activity, sizeof(double)*s->cap);
+        s->assigns   = realloc(s->assigns,  sizeof(lbool)*s->cap);
+        s->orderpos  = realloc(s->orderpos, sizeof(int)*s->cap);
+        s->reasons   = realloc(s->reasons,  sizeof(clause*)*s->cap);
+        s->levels    = realloc(s->levels,   sizeof(int)*s->cap);
+        s->tags      = realloc(s->tags,     sizeof(lbool)*s->cap);
+        s->trail     = realloc(s->trail,    sizeof(lit)*s->cap);
     }
 
     for (var = s->size; var < n; var++){
@@ -876,7 +876,7 @@ static lbool solver_search(solver* s, int nof_conflicts, int nof_learnts)
 
 solver* solver_new(void)
 {
-    solver* s = (solver*)malloc(sizeof(solver));
+    solver* s = malloc(sizeof(solver));
 
     // initialize vectors
     vecp_new(&s->clauses);
@@ -912,7 +912,7 @@ solver* solver_new(void)
     s->simpdb_props           = 0;
     s->random_seed            = 91648253;
     s->progress_estimate      = 0;
-    s->binary                 = (clause*)malloc(sizeof(clause) + sizeof(lit)*2);
+    s->binary                 = malloc(sizeof(clause) + sizeof(lit)*2);
     s->binary->size_learnt    = (2 << 1);
     s->verbosity              = 0;
 
