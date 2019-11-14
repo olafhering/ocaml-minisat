@@ -36,7 +36,7 @@ typedef struct veci_t veci;
 static inline void veci_new (veci* v) {
     v->size = 0;
     v->cap  = 4;
-    v->ptr  = (int*)malloc(sizeof(int)*v->cap);
+    v->ptr  = malloc(sizeof(int)*v->cap);
 }
 
 static inline void   veci_delete (veci* v)          { free(v->ptr);   }
@@ -47,7 +47,7 @@ static inline void   veci_push   (veci* v, int e)
 {
     if (v->size == v->cap) {
         int newsize = v->cap * 2+1;
-        v->ptr = (int*)realloc(v->ptr,sizeof(int)*newsize);
+        v->ptr = realloc(v->ptr,sizeof(int)*newsize);
         v->cap = newsize; }
     v->ptr[v->size++] = e;
 }
@@ -64,7 +64,7 @@ typedef struct vecp_t vecp;
 static inline void vecp_new (vecp* v) {
     v->size = 0;
     v->cap  = 4;
-    v->ptr  = (void**)malloc(sizeof(void*)*v->cap);
+    v->ptr  = malloc(sizeof(void*)*v->cap);
 }
 
 static inline void   vecp_delete (vecp* v)          { free(v->ptr);   }
@@ -75,7 +75,7 @@ static inline void   vecp_push   (vecp* v, void* e)
 {
     if (v->size == v->cap) {
         int newsize = v->cap * 2+1;
-        v->ptr = (void**)realloc(v->ptr,sizeof(void*)*newsize);
+        v->ptr = realloc(v->ptr,sizeof(void*)*newsize);
         v->cap = newsize; }
     v->ptr[v->size++] = e;
 }
