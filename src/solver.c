@@ -268,7 +268,7 @@ static clause* clause_new(solver* s, lit* begin, lit* end, int learnt)
     assert(end - begin > 1);
     assert(learnt >= 0 && learnt < 2);
     size           = end - begin;
-    c              = malloc(sizeof(clause) + sizeof(lit) * size + learnt * sizeof(float));
+    c              = calloc(1, sizeof(clause) + sizeof(lit) * size + learnt * sizeof(float));
     c->size_learnt = (size << 1) | learnt;
     assert(((unsigned long)c & 1) == 0);
 
@@ -876,7 +876,7 @@ static lbool solver_search(solver* s, int nof_conflicts, int nof_learnts)
 
 solver* solver_new(void)
 {
-    solver* s = malloc(sizeof(solver));
+    solver* s = calloc(1, sizeof(solver));
 
     // initialize vectors
     vecp_new(&s->clauses);
@@ -912,7 +912,7 @@ solver* solver_new(void)
     s->simpdb_props           = 0;
     s->random_seed            = 91648253;
     s->progress_estimate      = 0;
-    s->binary                 = malloc(sizeof(clause) + sizeof(lit)*2);
+    s->binary                 = calloc(1, sizeof(clause) + sizeof(lit)*2);
     s->binary->size_learnt    = (2 << 1);
     s->verbosity              = 0;
 
