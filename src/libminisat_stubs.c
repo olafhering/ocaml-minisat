@@ -3,6 +3,7 @@
 #include <caml/memory.h>
 #include <caml/alloc.h>
 
+#include <stdio.h>
 #include "string.h"
 #include "stdlib.h"
 #include "assert.h"
@@ -124,6 +125,7 @@ CAMLprim value caml_minisat_value(value block, value v_lit)
 
   // access literal in model, unless it's out-of-bounds
   lbool cur_val = var < s->model.size ? s->model.ptr[var] : l_Undef;
+  printf("%s: sign %x var %x size %x: %x\n", __func__, sign, var, s->model.size, cur_val);
 
   // put sign back
   if (!sign) { cur_val = -cur_val; }
