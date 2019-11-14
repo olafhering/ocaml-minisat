@@ -130,6 +130,13 @@ CAMLprim value caml_minisat_value(value block, value v_lit)
 
   // put sign back
   if (!sign) { cur_val = -cur_val; }
+  if (cur_val == l_Undef)
+    ret = 0;
+  else if (cur_val == l_True)
+    ret = 1;
+  else if (cur_val == l_False)
+    ret = -1;
+  else {
   switch (cur_val) {
   case 0:  ret = 0; break;
   case 1:  ret = 1; break;
@@ -139,6 +146,8 @@ CAMLprim value caml_minisat_value(value block, value v_lit)
 	ret = -2;
 	break;
   }
+  }
+fprintf(stderr, "%s: returning %x from %x\n", __func__, ret, cur_val);
 
   CAMLreturn (Val_int(ret));
 }
