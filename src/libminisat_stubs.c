@@ -119,6 +119,7 @@ CAMLprim value caml_minisat_value(value block, value v_lit)
 
   lit lit = lit_of_int(Int_val(v_lit));
 
+  int ret;
   bool sign = !lit_sign(lit);
   int var = lit_var(lit);
   solver *s = get_solver(block);
@@ -129,8 +130,17 @@ CAMLprim value caml_minisat_value(value block, value v_lit)
 
   // put sign back
   if (!sign) { cur_val = -cur_val; }
+  switch (cur_val) {
+  case 0:  ret = 0; break;
+  case 1:  ret = 1; break;
+  case -1: ret = -1; break;
+  default:
+	fprintf(stderr, "%s: unexpected value %x for cur_val\n", __func__, cur_val);
+	ret = -2;
+	break;
+  }
 
-  CAMLreturn (Val_int(cur_val));
+  CAMLreturn (Val_int(ret));
 }
 
 
