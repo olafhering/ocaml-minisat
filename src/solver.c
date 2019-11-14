@@ -672,7 +672,7 @@ clause* solver_propagate(solver* s)
     clause* confl  = (clause*)0;
     lit*    lits;
 
-    //printf("solver_propagate\n");
+    printf("solver_propagate\n");
     while (confl == 0 && s->qtail - s->qhead > 0){
         lit  p  = s->trail[s->qhead++];
         vecp* ws = solver_read_wlist(s,p);
@@ -683,7 +683,7 @@ clause* solver_propagate(solver* s)
         s->stats.propagations++;
         s->simpdb_props--;
 
-        //printf("checking lit %d: "L_LIT"\n", veci_size(ws), L_lit(p));
+        printf("checking lit %d: "L_LIT"\n", vecp_size(ws), L_lit(p));
         for (i = j = begin; i < end; ){
             if (clause_is_lit(*i)){
                 *j++ = *i;
@@ -1116,7 +1116,10 @@ bool   solver_solve(solver* s, lit* begin, lit* end)
         nof_learnts   *= 1.1;
     }
     if (s->verbosity >= 1)
+    {
+        printf("status 0x%x\n", status);
         printf("==============================================================================\n");
+    }
 
     solver_canceluntil(s,0);
     return status != l_False;
