@@ -583,7 +583,7 @@ static void solver_analyze(solver* s, clause* c, veci* learnt)
                 act_clause_bump(s,c);
 
             lits = clause_begin(c);
-            //printlits(lits,lits+clause_size(c)); printf("\n");
+            printlits(lits,lits+clause_size(c)); printf("\n");
             for (j = (p == lit_Undef ? 0 : 1); j < clause_size(c); j++){
                 lit q = lits[j];
                 assert(lit_var(q) >= 0 && lit_var(q) < s->size);
@@ -709,7 +709,7 @@ clause* solver_propagate(solver* s)
                     lits[1] = false_lit;
                 }
                 assert(lits[1] == false_lit);
-                //printf("checking clause: "); printlits(lits, lits+clause_size(*i)); printf("\n");
+                printf("checking clause: "); printlits(lits, lits+clause_size(*i)); printf("\n");
 
                 // If 0th watch is true, then clause is already satisfied.
                 sig = !lit_sign(lits[0]); sig += sig - 1;
@@ -981,7 +981,7 @@ bool solver_addclause(solver* s, lit* begin, lit* end)
 
     if (begin == end) return false;
 
-    //printlits(begin,end); printf("\n");
+    printlits(begin,end); printf("\n");
     // insertion sort
     maxvar = lit_var(*begin);
     for (i = begin + 1; i < end; i++){
@@ -993,7 +993,7 @@ bool solver_addclause(solver* s, lit* begin, lit* end)
     }
     solver_setnvars(s,maxvar+1);
 
-    //printlits(begin,end); printf("\n");
+    printlits(begin,end); printf("\n");
     values = s->assigns;
 
     // delete duplicates
@@ -1007,7 +1007,7 @@ bool solver_addclause(solver* s, lit* begin, lit* end)
             last = *j++ = *i;
     }
 
-    //printf("final: "); printlits(begin,j); printf("\n");
+    printf("final: "); printlits(begin,j); printf("\n");
 
     if (j == begin)          // empty clause
         return false;
@@ -1070,7 +1070,7 @@ bool   solver_solve(solver* s, lit* begin, lit* end)
     lbool*  values        = s->assigns;
     lit*    i;
     
-    //printf("solve: "); printlits(begin, end); printf("\n");
+    printf("solve: "); printlits(begin, end); printf("\n");
     for (i = begin; i < end; i++){
         switch (lit_sign(*i) ? -values[lit_var(*i)] : values[lit_var(*i)]){
         case 1: /* l_True: */
